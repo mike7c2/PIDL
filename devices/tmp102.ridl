@@ -131,7 +131,7 @@ device:
                     bitRange: "[15:4]"
         - register:
             name: THIGH
-            description: Low temperature register
+            description: High temperature register
             offset: 3
             size: 16
             fields:
