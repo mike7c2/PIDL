@@ -34,6 +34,11 @@ And try to generate C with one of the example device descriptions:
 python3 ridl.py devices/tmp102.ridl -c
 ```
 
+# Example input and generation
+
+[ina219.ridl](devices/ina219.ridl) and example output [ina219.h](gen/ina219.h)
+[tmp102.ridl](devices/tmp102.ridl) and example output [tmp102.h](gen/tmp102.h)
+
 ## Goals
 
 To have a format which can be used to accurately describe the register interface of a device in a machine
