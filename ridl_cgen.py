@@ -83,10 +83,3 @@ def cgen(device):
                                "/* " + e.description + "*/\n"
     header_text += "\n#endif"
     return header_text
-
-if __name__ == "__main__":
-    try:
-        device = ridl_schema.parse_ridl("devices/tmp102.ridl")
-        print(cgen(device))
-    except ridl_schema.RIDLParseException as p:
-        print(str(p))

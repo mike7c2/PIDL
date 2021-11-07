@@ -4,6 +4,36 @@ RIDL is an experiement to try using a description similar to an SVD file for the
 maps of other devices. Initially considering I2C devices but the concept should be extendable
 to arbitrary devices with register based interfaces.
 
+# Usage
+
+The project is not yet in a proper package.. check it out, install the deps:
+
+```
+pip3 install jinja2 yaml
+```
+
+The run the main file `ridl.py` i.e.:
+
+```
+python3 ridl.py --help
+usage: ridl.py [-h] [-c] file
+
+RIDL Parser and generator
+
+positional arguments:
+  file              RIDL file to parse
+
+optional arguments:
+  -h, --help        show this help message and exit
+  -c, --generate-c  Enable generation of C
+```
+
+And try to generate C with one of the example device descriptions:
+
+```
+python3 ridl.py devices/tmp102.ridl -c
+```
+
 ## Goals
 
 To have a format which can be used to accurately describe the register interface of a device in a machine

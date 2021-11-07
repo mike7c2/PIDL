@@ -1,5 +1,4 @@
 import yaml
-import dicttoxml
 
 def find_or_default(collection, key, default):
     if key in collection:
@@ -126,9 +125,3 @@ def parse_ridl(path):
     with open(path, "r") as f:
         root = yaml.load(f, Loader=yaml.Loader)
         return RIDLDevice.parse(root["device"], ["root"])
-
-if __name__ == "__main__":
-    try:
-        parse_ridl("devices/ina219.ridl")
-    except RIDLParseException as p:
-        print(str(p))
