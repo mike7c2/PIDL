@@ -1,0 +1,143 @@
+device:
+    name: TMP102
+    description: >
+        The TMP102 device is a digital temperature sensor
+        ideal for NTC/PTC thermistor replacement where high
+        accuracy is required. The device offers an accuracy
+        of ±0.5°C without requiring calibration or external
+        component signal conditioning. Device temperature
+        sensors are highly linear and do not require complex
+        calculations or lookup tables to derive the
+        temperature. The on-chip 12-bit ADC offers
+        resolutions down to 0.0625°C.
+        The 1.6-mm × 1.6-mm SOT563 package is 68%
+        smaller footprint than an SOT-23 package. The
+        TMP102 device features SMBus™, two-wire and I2C
+        interface compatibility, and allows up to four devices
+        on one bus. The device also features an SMBus alert
+        function. The device is specified to operate over
+        supply voltages from 1.4 to 3.6 V with the maximum
+        quiescent current of 10 μA over the full operating
+        range.
+        The TMP102 device is ideal for extended temperature
+        measurement in a variety of communication,
+        computer, consumer, environmental, industrial, and
+        instrumentation applications. The device is specified
+        for operation over a temperature range of –40°C to
+        125°C.
+    datasheet:
+        link: hhttps://www.ti.com/lit/ds/symlink/tmp102.pdf
+        title: TMP102 Low-Power Digital Temperature Sensor With SMBus and Two-Wire Serial Interface in SOT563
+        revision: SBOS397H –AUGUST 2007–REVISED DECEMBER 2018
+    registers:
+        - register:
+            name: Temperature
+            description: Temperature register
+            offset: 0
+            size: 16
+            fields:
+                - field:
+                    name: TEMP
+                    bitRange: "[15:4]"
+        - register:
+            name: Configuration
+            description: Configuration Register
+            offset: 1
+            size: 16
+            fields:
+                - field:
+                    name: ONE_SHOT
+                    description: When the device is in Shutdown Mode, writing a 1 to the OS bit starts a single temperature conversion.
+                    bitRange: "[15:15]"
+                - field:
+                    name: RESOLUTION
+                    description: The converter resolution bits, R1 and R0, are read-only bits
+                    bitRange: "[14:13]"
+                - field:
+                    name: FAULT_QUEUE
+                    description: Control number of faults to trigger alarm
+                    bitRange: "[12:11]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: 1FAULT
+                            description: 1 Consecutive fault
+                            value: 0
+                        - enumeratedValue:
+                            name: 2FAULT
+                            description: 2 Consecutive fault
+                            value: 1
+                        - enumeratedValue:
+                            name: 4FAULT
+                            description: 4 Consecutive fault
+                            value: 2
+                        - enumeratedValue:
+                            name: 6FAULT
+                            description: 6 Consecutive fault
+                            value: 3
+                - field:
+                    name: POLARITY
+                    description: If the POL bit is set to 0 (default), the ALERT pin becomes active low.
+                    bitRange: "[10:10]"
+                - field:
+                    name: THERMOSTAT
+                    description: The Thermostat mode bit indicates to the device whether to operate in Comparator mode (TM = 0) or Interrupt (TM = 1).
+                    bitRange: "[9:9]"
+                - field:
+                    name: SHUTDOWN_MODE
+                    description: Shutdown mode enables when the SD bit is
+                    bitRange: "[8:8]"
+                - field:
+                    name: CONVERSION_RATE
+                    bitRange: "[7:6]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: HZ25
+                            description: 0.25 Hz
+                            value: 0
+                        - enumeratedValue:
+                            name: 1HZ
+                            description: 1 Hz
+                            value: 1
+                        - enumeratedValue:
+                            name: 4HZ
+                            description: 4 Hz (default)
+                            value: 2
+                        - enumeratedValue:
+                            name: 8HZ
+                            description: 8 Hz
+                            value: 3
+                - field:
+                    name: ALERT
+                    description: Active high alarm bit
+                    bitRange: "[5:5]"
+                - field:
+                    name: EXTENDED_MODE
+                    bitRange: "[5:5]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: NORMAL_MODE
+                            value: 0
+                        - enumeratedValue:
+                            name: EXTENDED_MODE
+                            value: 1
+        - register:
+            name: TLOW
+            description: Low temperature register
+            offset: 2
+            size: 16
+            fields:
+                - field:
+                    name: FIELD
+                    bitRange: "[15:4]"
+        - register:
+            name: THIGH
+            description: Low temperature register
+            offset: 3
+            size: 16
+            fields:
+                - field:
+                    name: FIELD
+                    bitRange: "[15:4]"
+
+
+
