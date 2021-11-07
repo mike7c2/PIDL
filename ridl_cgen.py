@@ -22,6 +22,7 @@ C_REGISTER_TEMPLATE = Template("""
 #define {{ register_define }}""")
 
 C_FIELD_TEMPLATE = Template("""
+/* {{ field_description }} */
 #define {{ field_define }}_Pos {{ field_position }}
 #define {{ field_define }}_Msk ({{ field_mask }} << {{ field_define }}_Pos)
 #define {{ field_define }} {{ field_define }}_Msk""")
@@ -44,14 +45,16 @@ def multiline_comment(text, lim=80):
 
 def cgen(device):
     header_text = ""
-    header_text += C_HEADER_TEMPLATE.render({
-        "device_name": device.name,
+    header_content = {
+        "device_name": device.name.upper(),
         "device_description": multiline_comment(device.description),
         "datasheet_link": device.datasheet["link"],
         "datasheet_title": device.datasheet["title"],
         "datasheet_revision": device.datasheet["revision"],
-    })
+    }
+    header_text += C_HEADER_TEMPLATE.render(header_content)
     header_text += "\n"
+    header_text += "#ifndef " + header_content["device_name"] + "_H\n#define " + header_content["device_name"] + "_H\n"
 
     for r in device.registers:
         register_content = {
@@ -67,6 +70,7 @@ def cgen(device):
             continue
         for f in r.fields:
             field_content = {
+                "field_description": f.description,
                 "field_position": "(%d)" % f.bitRange.stop,
                 "field_mask": "(" + hex(2 ** ((f.bitRange.start+1) - f.bitRange.stop)-1) + ")",
                 "field_define": device.name.upper() + "_" + r.name.upper().replace(" ", "_") + "_" + f.name.upper()
@@ -77,15 +81,12 @@ def cgen(device):
                 header_text += "#define " + field_content["field_define"] + "_" + e.name.upper() + " " + \
                                "(" + str(e.value) + " << " + field_content["field_define"] + "_Pos)" + "        " + \
                                "/* " + e.description + "*/\n"
-            header_text += "\n"
-
+    header_text += "\n#endif"
     return header_text
-
-
 
 if __name__ == "__main__":
     try:
-        device = ridl_schema.parse_ridl("devices/ina219.ridl")
+        device = ridl_schema.parse_ridl("devices/tmp102.ridl")
         print(cgen(device))
     except ridl_schema.RIDLParseException as p:
         print(str(p))
