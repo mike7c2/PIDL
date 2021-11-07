@@ -54,23 +54,31 @@ def cgen(device):
     header_text += "\n"
 
     for r in device.registers:
-        header_text += C_REGISTER_TEMPLATE.render({
+        register_content = {
             "register_name": r.name,
             "register_description": multiline_comment(r.description),
             "register_define": device.name.upper() + "_" + r.name.upper().replace(" ", "_") + "_" + "INDEX" + " " + str(r.offset)
-        })
+        }
+
+        header_text += C_REGISTER_TEMPLATE.render(register_content)
         header_text += "\n"
         # Don't output field templates when entire register is single field
         if (len(r.fields) == 1) and (r.fields[0].bitRange.width() == r.size):
             continue
         for f in r.fields:
-            header_text += C_FIELD_TEMPLATE.render({
+            field_content = {
                 "field_position": "(%d)" % f.bitRange.stop,
                 "field_mask": "(" + hex(2 ** ((f.bitRange.start+1) - f.bitRange.stop)-1) + ")",
                 "field_define": device.name.upper() + "_" + r.name.upper().replace(" ", "_") + "_" + f.name.upper()
-            })
+            }
+
+            header_text += C_FIELD_TEMPLATE.render(field_content) + "\n"
+            for e in f.enumeratedValues:
+                header_text += "#define " + field_content["field_define"] + "_" + e.name.upper() + " " + \
+                               "(" + str(e.value) + " << " + field_content["field_define"] + "_Pos)" + "        " + \
+                               "/* " + e.description + "*/\n"
             header_text += "\n"
-            
+
     return header_text
 
 
