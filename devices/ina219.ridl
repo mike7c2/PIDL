@@ -1,0 +1,169 @@
+device:
+    name: INA219
+    description: >
+        The INA219 is a current shunt and power monitor 
+        with an I2C- or SMBUS-compatible interface. The 
+        device monitors both shunt voltage drop and bus 
+        supply voltage, with programmable conversion times 
+        and filtering. A programmable calibration value, 
+        combined with an internal multiplier, enables direct 
+        readouts of current in amperes. An additional 
+        multiplying register calculates power in watts. The I 2C- or SMBUS-compatible interface features 16 
+        programmable addresses. 
+        The INA219 is available in two grades: A and B. The 
+        B grade version has higher accuracy and higher 
+        precision specifications. 
+        The INA219 senses across shunts on buses that can 
+        vary from 0 to 26 V. The device uses a single 3- to 
+        5.5-V supply, drawing a maximum of 1 mA of supply 
+        current. The INA219 operates from –40°C to 125°C.
+    datasheet:
+        link: https://www.ti.com/lit/ds/symlink/ina219.pdf
+        title: INA219 Zerø-Drift, Bidirectional Current/Power Monitor With I2C Interface
+        revision: SBOS448G –AUGUST 2008–REVISED DECEMBER 2015
+    registers:
+        - register:
+            name: Configuration
+            description: All-register reset, settings for bus, voltage range, PGA Gain, ADC resolution/averaging
+            offset: 0
+            size: 16
+            fields:
+                - field:
+                    name: RST
+                    description: Setting this bit to '1' generates a system reset that is the same as power-on reset. Resets all registers to default values; this bit self-clears.
+                    bitRange: "[15:15]"
+                - field:
+                    name: BRNG
+                    description: Control bus voltage range
+                    bitRange: "[13:13]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: FSR16V
+                            description: 16V FSR
+                            value: 0
+                        - enumeratedValue:
+                            name: FSR32V
+                            description: 32V FSR
+                            value: 1
+                - field:
+                    name: PG
+                    description: Sets PGA gain and range.
+                    bitRange: "[12:11]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: PG00
+                            description: Range +- 40mV
+                            value: 0
+                        - enumeratedValue:
+                            name: PG01
+                            description: Range +- 80mV
+                            value: 1
+                        - enumeratedValue:
+                            name: PG10
+                            description: Range +- 160mV
+                            value: 2
+                        - enumeratedValue:
+                            name: PG11
+                            description: Range +- 320mV
+                            value: 3
+                - field:
+                    name: BADC
+                    description: These bits adjust the Bus ADC resolution (9-, 10-, 11-, or 12-bit) or set the number of samples used when averaging results for the Bus Voltage Register (02h).
+                    bitRange: "[10:7]"
+                - field:
+                    name: SADC
+                    description: These bits adjust the Shunt ADC resolution (9-, 10-, 11-, or 12-bit) or set the number of samples used when averaging results for the Shunt Voltage Register (01h).
+                    bitRange: "[6:4]"
+                - field:
+                    name: MODE
+                    bitRange: "[2:0]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: MODE000
+                            description: Power-down
+                            value: 0
+                        - enumeratedValue:
+                            name: MODE001
+                            description: Shunt voltage, triggered
+                            value: 1
+                        - enumeratedValue:
+                            name: MODE010
+                            description: Bus voltage, triggered
+                            value: 2
+                        - enumeratedValue:
+                            name: MODE011
+                            description: Shunt and bus, triggered
+                            value: 3
+                        - enumeratedValue:
+                            name: MODE100
+                            description: ADC off (disabled)
+                            value: 4
+                        - enumeratedValue:
+                            name: MODE101
+                            description: Shunt voltage, continuous
+                            value: 5
+                        - enumeratedValue:
+                            name: MODE110
+                            description: Bus voltage, continuous
+                            value: 6
+                        - enumeratedValue:
+                            name: MODE111
+                            description: Shunt and bus, continuous
+                            value: 7
+        - register:
+            name: Shunt voltage
+            description: Shunt voltage measurement data.
+            offset: 1
+            size: 16
+            fields:
+                - field:
+                    name: SD
+                    bitRange: "[15:0]"
+        - register:
+            name: Bus voltage
+            description: Bus voltage measurement data.
+            offset: 2
+            size: 16
+            fields:
+                - field:
+                    name: BD
+                    bitRange: "[15:3]"
+                - field:
+                    name: CNVR
+                    description: Conversion Ready bit (CNVR) indicates when data from a conversion is available in the data output registers
+                    bitRange: "[1:1]"
+                - field:
+                    name: OVF
+                    description: The Math Overflow Flag (OVF) is set when the Power or Current calculations are out of range. 
+                    bitRange: "[0:0]"
+        - register:
+            name: Power
+            description: Power measurement data.
+            offset: 3
+            size: 16
+            fields:
+                - field:
+                    name: PD
+                    bitRange: "[15:0]"
+        - register:
+            name: Current
+            description: Contains the value of the current flowing through the shunt resistor.
+            offset: 4
+            size: 16
+            fields:
+                - field:
+                    name: CD
+                    bitRange: "[15:0]"
+        - register:
+            name: Calibration
+            description: Gets full-scale range and LSB of Current and power measurements. Overall system calibration.
+            offset: 5
+            size: 16
+            fields:
+                - field:
+                    name: FS
+                    description: Full scale calibration value
+                    bitRange: "[15:0]"
+
+
+
