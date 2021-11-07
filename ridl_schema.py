@@ -28,8 +28,9 @@ class RIDLDevice(object):
             parent_list.append(name)
 
             registers = []
-            for r in node["registers"]:
-                registers.append(RIDLRegister.parse(r["register"], parent_list))
+            if "registers" in node:
+                for r in node["registers"]:
+                    registers.append(RIDLRegister.parse(r["register"], parent_list))
 
             return RIDLDevice(name, description, datasheet, registers)
         except KeyError as k:
