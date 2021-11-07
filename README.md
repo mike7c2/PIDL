@@ -42,6 +42,6 @@ to keep the project feasible
 
 To have a set of tools which can consume the format. These tools include:
 
-Generators i.e. generate device definitions in various langauge
-Dynamic consumers i.e. a generic driver which could be used in python to talk to registers on any device
-Documentation Generation - if there were good tools to generate documentation from these descriptions maybe manufacturers would ship them..
+ * Generators i.e. generate device definitions in various langauge
+ * Dynamic consumers i.e. a generic driver which could be used in python to talk to registers on any device
+ * Documentation Generation - if there were good tools to generate documentation from these descriptions maybe manufacturers would ship them..
