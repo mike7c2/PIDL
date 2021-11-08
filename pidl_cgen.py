@@ -93,8 +93,8 @@ def cgen(device):
         for f in r.fields:
             field_content = {
                 "field_description": f.description,
-                "field_position": generate_c_unsigned_constant(f.bitRange.stop),
-                "field_mask": "(" + hex(2 ** (f.bitRange.width()-1)) + "u)",
+                "field_position": generate_c_pointer_constant(f.bitRange.stop, device.registerSize),
+                "field_mask": generate_c_pointer_constant(2 ** f.bitRange.width()-1, device.registerSize, True),
                 "field_define": device.name.upper() + "_" + r.name.upper().replace(" ", "_") + "_" + f.name.upper()
             }
 

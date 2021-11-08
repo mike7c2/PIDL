@@ -32,20 +32,20 @@
 #define INA219_CONFIGURATION_INDEX ((uint8_t)0x00)
 
 /* Setting this bit to '1' generates a system reset that is the same as power-on reset. Resets all registers to default values; this bit self-clears. */
-#define INA219_CONFIGURATION_RST_Pos (15u)
-#define INA219_CONFIGURATION_RST_Msk ((0x1u) << INA219_CONFIGURATION_RST_Pos)
+#define INA219_CONFIGURATION_RST_Pos ((uint16_t)15)
+#define INA219_CONFIGURATION_RST_Msk (((uint16_t)0x0001) << INA219_CONFIGURATION_RST_Pos)
 #define INA219_CONFIGURATION_RST INA219_CONFIGURATION_RST_Msk
 
 /* Control bus voltage range */
-#define INA219_CONFIGURATION_BRNG_Pos (13u)
-#define INA219_CONFIGURATION_BRNG_Msk ((0x1u) << INA219_CONFIGURATION_BRNG_Pos)
+#define INA219_CONFIGURATION_BRNG_Pos ((uint16_t)13)
+#define INA219_CONFIGURATION_BRNG_Msk (((uint16_t)0x0001) << INA219_CONFIGURATION_BRNG_Pos)
 #define INA219_CONFIGURATION_BRNG INA219_CONFIGURATION_BRNG_Msk
 #define INA219_CONFIGURATION_BRNG_FSR16V ((0u) << INA219_CONFIGURATION_BRNG_Pos)        /* 16V FSR*/
 #define INA219_CONFIGURATION_BRNG_FSR32V ((1u) << INA219_CONFIGURATION_BRNG_Pos)        /* 32V FSR*/
 
 /* Sets PGA gain and range. */
-#define INA219_CONFIGURATION_PG_Pos (11u)
-#define INA219_CONFIGURATION_PG_Msk ((0x2u) << INA219_CONFIGURATION_PG_Pos)
+#define INA219_CONFIGURATION_PG_Pos ((uint16_t)11)
+#define INA219_CONFIGURATION_PG_Msk (((uint16_t)0x0003) << INA219_CONFIGURATION_PG_Pos)
 #define INA219_CONFIGURATION_PG INA219_CONFIGURATION_PG_Msk
 #define INA219_CONFIGURATION_PG_PG00 ((0u) << INA219_CONFIGURATION_PG_Pos)        /* Range +- 40mV*/
 #define INA219_CONFIGURATION_PG_PG01 ((1u) << INA219_CONFIGURATION_PG_Pos)        /* Range +- 80mV*/
@@ -53,18 +53,18 @@
 #define INA219_CONFIGURATION_PG_PG11 ((3u) << INA219_CONFIGURATION_PG_Pos)        /* Range +- 320mV*/
 
 /* These bits adjust the Bus ADC resolution (9-, 10-, 11-, or 12-bit) or set the number of samples used when averaging results for the Bus Voltage Register (02h). */
-#define INA219_CONFIGURATION_BADC_Pos (7u)
-#define INA219_CONFIGURATION_BADC_Msk ((0x8u) << INA219_CONFIGURATION_BADC_Pos)
+#define INA219_CONFIGURATION_BADC_Pos ((uint16_t)7)
+#define INA219_CONFIGURATION_BADC_Msk (((uint16_t)0x000f) << INA219_CONFIGURATION_BADC_Pos)
 #define INA219_CONFIGURATION_BADC INA219_CONFIGURATION_BADC_Msk
 
 /* These bits adjust the Shunt ADC resolution (9-, 10-, 11-, or 12-bit) or set the number of samples used when averaging results for the Shunt Voltage Register (01h). */
-#define INA219_CONFIGURATION_SADC_Pos (4u)
-#define INA219_CONFIGURATION_SADC_Msk ((0x4u) << INA219_CONFIGURATION_SADC_Pos)
+#define INA219_CONFIGURATION_SADC_Pos ((uint16_t)4)
+#define INA219_CONFIGURATION_SADC_Msk (((uint16_t)0x0007) << INA219_CONFIGURATION_SADC_Pos)
 #define INA219_CONFIGURATION_SADC INA219_CONFIGURATION_SADC_Msk
 
 /*  */
-#define INA219_CONFIGURATION_MODE_Pos (0u)
-#define INA219_CONFIGURATION_MODE_Msk ((0x4u) << INA219_CONFIGURATION_MODE_Pos)
+#define INA219_CONFIGURATION_MODE_Pos ((uint16_t)0)
+#define INA219_CONFIGURATION_MODE_Msk (((uint16_t)0x0007) << INA219_CONFIGURATION_MODE_Pos)
 #define INA219_CONFIGURATION_MODE INA219_CONFIGURATION_MODE_Msk
 #define INA219_CONFIGURATION_MODE_MODE000 ((0u) << INA219_CONFIGURATION_MODE_Pos)        /* Power-down*/
 #define INA219_CONFIGURATION_MODE_MODE001 ((1u) << INA219_CONFIGURATION_MODE_Pos)        /* Shunt voltage, triggered*/
@@ -90,18 +90,18 @@
 #define INA219_BUS_VOLTAGE_INDEX ((uint8_t)0x02)
 
 /*  */
-#define INA219_BUS_VOLTAGE_BD_Pos (3u)
-#define INA219_BUS_VOLTAGE_BD_Msk ((0x1000u) << INA219_BUS_VOLTAGE_BD_Pos)
+#define INA219_BUS_VOLTAGE_BD_Pos ((uint16_t)3)
+#define INA219_BUS_VOLTAGE_BD_Msk (((uint16_t)0x1fff) << INA219_BUS_VOLTAGE_BD_Pos)
 #define INA219_BUS_VOLTAGE_BD INA219_BUS_VOLTAGE_BD_Msk
 
 /* Conversion Ready bit (CNVR) indicates when data from a conversion is available in the data output registers */
-#define INA219_BUS_VOLTAGE_CNVR_Pos (1u)
-#define INA219_BUS_VOLTAGE_CNVR_Msk ((0x1u) << INA219_BUS_VOLTAGE_CNVR_Pos)
+#define INA219_BUS_VOLTAGE_CNVR_Pos ((uint16_t)1)
+#define INA219_BUS_VOLTAGE_CNVR_Msk (((uint16_t)0x0001) << INA219_BUS_VOLTAGE_CNVR_Pos)
 #define INA219_BUS_VOLTAGE_CNVR INA219_BUS_VOLTAGE_CNVR_Msk
 
 /* The Math Overflow Flag (OVF) is set when the Power or Current calculations are out of range. */
-#define INA219_BUS_VOLTAGE_OVF_Pos (0u)
-#define INA219_BUS_VOLTAGE_OVF_Msk ((0x1u) << INA219_BUS_VOLTAGE_OVF_Pos)
+#define INA219_BUS_VOLTAGE_OVF_Pos ((uint16_t)0)
+#define INA219_BUS_VOLTAGE_OVF_Msk (((uint16_t)0x0001) << INA219_BUS_VOLTAGE_OVF_Pos)
 #define INA219_BUS_VOLTAGE_OVF INA219_BUS_VOLTAGE_OVF_Msk
 
 /**
