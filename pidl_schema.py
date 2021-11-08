@@ -7,10 +7,10 @@ def find_or_default(collection, key, default):
         return default
 
 
-class RIDLParseException(Exception):
+class PIDLParseException(Exception):
     pass
 
-class RIDLDevice(object):
+class PIDLDevice(object):
     def __init__(self, name : str, description : str, datasheet, registers):
         self.name = name
         self.description = description
@@ -29,13 +29,13 @@ class RIDLDevice(object):
             registers = []
             if "registers" in node:
                 for r in node["registers"]:
-                    registers.append(RIDLRegister.parse(r["register"], parent_list))
+                    registers.append(PIDLRegister.parse(r["register"], parent_list))
 
-            return RIDLDevice(name, description, datasheet, registers)
+            return PIDLDevice(name, description, datasheet, registers)
         except KeyError as k:
-            raise RIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
+            raise PIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
 
-class RIDLRegister(object):
+class PIDLRegister(object):
     def __init__(self, name : str, description : str, offset : int, size : int, fields):
         self.name = name
         self.description = description
@@ -55,13 +55,13 @@ class RIDLRegister(object):
             fields = []
             if "fields" in node:
                 for f in node["fields"]:
-                    fields.append(RIDLField.parse(f["field"], parent_list))
+                    fields.append(PIDLField.parse(f["field"], parent_list))
 
-            return RIDLRegister(name, description, offset, size, fields)
+            return PIDLRegister(name, description, offset, size, fields)
         except KeyError as k:
-            raise RIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
+            raise PIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
 
-class RIDLField(object):
+class PIDLField(object):
     def __init__(self, name : str, description : str, bitRange : str, enumeratedValues):
         self.name = name
         self.description = description
@@ -75,17 +75,17 @@ class RIDLField(object):
             description = find_or_default(node, "description", "")
 
             parent_list.append(name)
-            bitRange = RIDLBitRange.parse(node["bitRange"], parent_list)
+            bitRange = PIDLBitRange.parse(node["bitRange"], parent_list)
             enumeratedValues = []
             if "enumeratedValues" in node:
                 for e in node["enumeratedValues"]:
-                    enumeratedValues.append(RIDLEnumeratedValue.parse(e["enumeratedValue"], parent_list))
+                    enumeratedValues.append(PIDLEnumeratedValue.parse(e["enumeratedValue"], parent_list))
 
-            return RIDLField(name, description, bitRange, enumeratedValues)
+            return PIDLField(name, description, bitRange, enumeratedValues)
         except KeyError as k:
-            raise RIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
+            raise PIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
 
-class RIDLEnumeratedValue(object):
+class PIDLEnumeratedValue(object):
     def __init__(self, name : str, description : str, value : int):
         self.name = name
         self.description = description
@@ -98,11 +98,11 @@ class RIDLEnumeratedValue(object):
             description = find_or_default(node, "description", "")
             value = node["value"]
 
-            return RIDLEnumeratedValue(name, description, value)
+            return PIDLEnumeratedValue(name, description, value)
         except KeyError as k:
-            raise RIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
+            raise PIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
 
-class RIDLBitRange(object):
+class PIDLBitRange(object):
     def __init__(self, start : int, stop : int):
         self.start = start
         self.stop = stop
@@ -117,11 +117,11 @@ class RIDLBitRange(object):
     def parse(str_value, parent_list):
         try:
             start, stop = str_value.strip("[]").split(":")
-            return RIDLBitRange(int(start), int(stop))
+            return PIDLBitRange(int(start), int(stop))
         except KeyError as k:
-            raise RIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
+            raise PIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
 
-def parse_ridl(path):
+def parse_pidl(path):
     with open(path, "r") as f:
         root = yaml.load(f, Loader=yaml.Loader)
-        return RIDLDevice.parse(root["device"], ["root"])
+        return PIDLDevice.parse(root["device"], ["root"])

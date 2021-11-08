@@ -21,6 +21,8 @@ device:
         link: https://www.ti.com/lit/ds/symlink/ina219.pdf
         title: INA219 Zerø-Drift, Bidirectional Current/Power Monitor With I2C Interface
         revision: SBOS448G –AUGUST 2008–REVISED DECEMBER 2015
+    address_width: 8
+    register_size: 16
     registers:
         - register:
             name: Configuration

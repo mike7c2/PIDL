@@ -1,5 +1,5 @@
 /**
- * Automatically generated code by RIDL
+ * Automatically generated code by pidl
  * Definition generated using:
  *     hhttps://www.ti.com/lit/ds/symlink/tmp102.pdf
  *     TMP102 Low-Power Digital Temperature Sensor With SMBus and Two-Wire Serial Interface in SOT563

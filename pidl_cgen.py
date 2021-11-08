@@ -1,8 +1,8 @@
 from jinja2 import Template
-import ridl_schema
+import pidl_schema
 
 C_HEADER_TEMPLATE = Template("""/**
- * Automatically generated code by RIDL
+ * Automatically generated code by pidl
  * Definition generated using:
  *     {{datasheet_link}}
  *     {{datasheet_title}}

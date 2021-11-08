@@ -29,6 +29,7 @@ device:
         link: hhttps://www.ti.com/lit/ds/symlink/tmp102.pdf
         title: TMP102 Low-Power Digital Temperature Sensor With SMBus and Two-Wire Serial Interface in SOT563
         revision: SBOS397H –AUGUST 2007–REVISED DECEMBER 2018
+    address_width: 8
     registers:
         - register:
             name: Temperature

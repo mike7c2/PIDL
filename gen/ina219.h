@@ -1,5 +1,5 @@
 /**
- * Automatically generated code by RIDL
+ * Automatically generated code by pidl
  * Definition generated using:
  *     https://www.ti.com/lit/ds/symlink/ina219.pdf
  *     INA219 Zerø-Drift, Bidirectional Current/Power Monitor With I2C Interface
