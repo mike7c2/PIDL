@@ -1,0 +1,244 @@
+device:
+    name: MLX90640
+    description: >
+        The MLX90640 is a fully calibrated 32x24 pixels 
+        thermal  IR  array  in  an  industry  standard  4-lead  TO39 
+        package with digital interface. 
+        The MLX90640 contains 768 FIR  pixels. An ambient 
+        sensor is integrated to measure the ambient 
+        temperature of  the  chip and  supply  sensor to  measure 
+        the VDD. The outputs of all sensors IR, Ta and VDD are 
+        stored in internal RAM and are accessible through  I2C.  
+    datasheet:
+        link: https://www.melexis.com/en/documents/documentation/datasheets/datasheet-mlx90640
+        title: MLX90640 32x24 IR array
+        revision: SREVISION 12 – DECEMBER 3, 2019 
+    addressWidth: 16
+    registerSize: 16
+    regions:
+        - region:
+            name: ROM
+            offset: 0x0000
+            size: 0x400
+        - region:
+            name: RAM
+            offset: 0x0400
+            size: 0x400
+        - region:
+            name: "PIXEL_RAM"
+            offset: 0x0400
+            size: 0x300
+        - region:
+            name: EEPROM
+            offset: 0x2400
+            size: 0x340
+        - region:
+            name: REGISTERS_RESERVED
+            offset: 0x8000
+            size: 0x800C
+        - region:
+            name: REGISTERS
+            offset: 0x800D
+            size: 0x8010
+        - region:
+            name: REGISTERS_RESERVED_2
+            offset: 0x8011
+            size: 0x8016
+    registers:
+        - register:
+            name: STATUS
+            description: Temperature register
+            offset: 0x8000
+            size: 16
+            fields:
+                - field:
+                    name: EN_OV
+                    description: Enable RAM overwrite
+                    bitRange: "[4:4]"
+                - field:
+                    name: DATA_READY
+                    description: New data available in RAM
+                    bitRange: "[3:3]"
+                - field:
+                    name: LAST_SUBPAGE
+                    description: Last measured subpage
+                    bitRange: "[2:0]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: SUBPAGE0
+                            description: Subpage 0 selected
+                            value: 0
+                        - enumeratedValue:
+                            name: SUBPAGE1
+                            description: Subpage 1 selected
+                            value: 1
+        - register:
+            name: CONTROL
+            description: Configuration Register
+            offset: 0x800D
+            size: 16
+            fields:
+                - field:
+                    name: READING_PATTERN
+                    description: Pattern for reading data from sensor
+                    bitRange: "[12:12]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: INTERLEAVED
+                            description: Interleaved read pattern
+                            value: 0
+                        - enumeratedValue:
+                            name: CHESS
+                            description: Chess read pattern
+                            value: 1
+                - field:
+                    name: RESOLUTION_CONTROL
+                    bitRange: "[11:10]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: 16BIT
+                            description: 16BIT ADC resolution
+                            value: 0
+                        - enumeratedValue:
+                            name: 17BIT
+                            description: 17BIT ADC resolution
+                            value: 1
+                        - enumeratedValue:
+                            name: 18BIT
+                            description: 18BIT ADC resolution
+                            value: 2
+                        - enumeratedValue:
+                            name: 19BIT
+                            description: 19BIT ADC resolution
+                            value: 3
+                - field:
+                    name: REFRESH_RATE
+                    description: Control refresh rate of IR sensor
+                    bitRange: "[9:7]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: HZ5
+                            description: 0.5Hz
+                            value: 0
+                        - enumeratedValue:
+                            name: 1HZ
+                            description: 1Hz
+                            value: 1
+                        - enumeratedValue:
+                            name: 2HZ
+                            description: 2Hz
+                            value: 2
+                        - enumeratedValue:
+                            name: 4HZ
+                            description: 4Hz
+                            value: 3
+                        - enumeratedValue:
+                            name: 8HZ
+                            description: 8Hz
+                            value: 4
+                        - enumeratedValue:
+                            name: 16HZ
+                            description: 16Hz
+                            value: 5
+                        - enumeratedValue:
+                            name: 32HZ
+                            description: 32Hz
+                            value: 6
+                        - enumeratedValue:
+                            name: 64HZ
+                            description: 64Hz
+                            value: 7
+                
+                - field:
+                    name: SEL_SUBPAGE
+                    bitRange: "[6:4]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: SUBPAGE0
+                            description: Subpage 0 selected
+                            value: 0
+                        - enumeratedValue:
+                            name: SUBPAGE1
+                            description: Subpage 1 selected
+                            value: 1
+                - field:
+                    name: EN_REPEAT
+                    bitRange: "[3:3]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: TOGGLE
+                            description: Toggles between subpage "0" and subpage "1" if Enable subpages mode = "1"
+                            value: 0
+                        - enumeratedValue:
+                            name: SELECT
+                            description:  Select subpage determines which subpage to be measured if Enable subpages mode = "1"
+                            value: 1
+                - field:
+                    name: EN_HOLD
+                    bitRange: "[2:2]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: NOHOLD
+                            description: Transfer the data into storage RAM at each measured frame (
+                            value: 0
+                        - enumeratedValue:
+                            name: HOLD
+                            description: Transfer the data into storage RAM only if en_overwrite = 1
+                            value: 1
+                - field:
+                    name: EN_SUBPAGE
+                    bitRange: "[0:0]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: SINGLE
+                            description: No subpages, only one page will be measured
+                            value: 0
+                        - enumeratedValue:
+                            name: ACTIVE
+                            description: Subpage mode is activated 
+                            value: 1
+        - register:
+            name: I2C_CONFIGURATION
+            description: Configuration Register for I2C
+            offset: 0x800F
+            size: 16
+            fields:
+                - field:
+                    name: DRIVER_LIMIT
+                    bitRange: "[2:2]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: "ON"
+                            description: SDA driver current limit is ON 
+                            value: 0
+                        - enumeratedValue:
+                            name: "OFF"
+                            description: SDA driver current limit is OFF
+                            value: 1
+                - field:
+                    name: THRESHOLD
+                    bitRange: "[1:1]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: VDD
+                            description: VDD reffered threshold (normal mode) 
+                            value: 0
+                        - enumeratedValue:
+                            name: 1V8
+                            description: 1.8V reffered threshold (1.8V mode)
+                            value: 1
+                - field:
+                    name: FM
+                    bitRange: "[0:0]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: ENABLE
+                            description: FM+ mode enabled
+                            value: 0
+                        - enumeratedValue:
+                            name: DISABLE
+                            description: FM+ mode disabled
+                            value: 1
+
+
+

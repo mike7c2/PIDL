@@ -11,12 +11,15 @@ class PIDLParseException(Exception):
     pass
 
 class PIDLDevice(object):
-    def __init__(self, name : str, description : str, datasheet, registers, regions):
+    def __init__(self, name : str, description : str, datasheet, registers, regions, addressWidth : int, registerSize : int):
         self.name = name
         self.description = description
         self.datasheet = datasheet
         self.registers = registers
         self.regions = regions
+
+        self.addressWidth = addressWidth
+        self.registerSize = registerSize
 
     @staticmethod
     def parse(node, parent_list):
@@ -24,6 +27,8 @@ class PIDLDevice(object):
             name = node["name"]
             description = find_or_default(node, "description", "")
             datasheet = node["datasheet"]
+            addressWidth = node["addressWidth"]
+            registerSize = node["registerSize"]
 
             parent_list = [name] + parent_list
             registers = []
@@ -35,7 +40,7 @@ class PIDLDevice(object):
                 for r in node["regions"]:
                     regions.append(PIDLRegion.parse(r["region"], parent_list))
 
-            return PIDLDevice(name, description, datasheet, registers, regions)
+            return PIDLDevice(name, description, datasheet, registers, regions, addressWidth, registerSize)
         except KeyError as k:
             raise PIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
 

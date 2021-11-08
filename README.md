@@ -1,6 +1,6 @@
-# RIDL
+# PIDL (Peripheral Interface Description Library)
 
-RIDL is an experiement to try using a description similar to an SVD file for the register
+PIDL is an experiement to try using a description similar to an SVD file for the register
 maps of other devices. Initially considering I2C devices but the concept should be extendable
 to arbitrary devices with register based interfaces.
 
@@ -12,16 +12,16 @@ The project is not yet in a proper package.. check it out, install the deps:
 pip3 install jinja2 yaml
 ```
 
-The run the main file `ridl.py` i.e.:
+The run the main file `pidl.py` i.e.:
 
 ```
-python3 ridl.py --help
-usage: ridl.py [-h] [-c] file
+python3 pidl.py --help
+usage: pidl.py [-h] [-c] file
 
-RIDL Parser and generator
+PIDL Parser and generator
 
 positional arguments:
-  file              RIDL file to parse
+  file              PIDL file to parse
 
 optional arguments:
   -h, --help        show this help message and exit
@@ -31,13 +31,13 @@ optional arguments:
 And try to generate C with one of the example device descriptions:
 
 ```
-python3 ridl.py devices/tmp102.ridl -c
+python3 pidl.py devices/tmp102.pidl -c
 ```
 
 # Example input and generation
 
- * [ina219.ridl](devices/ina219.ridl) and example output [ina219.h](gen/ina219.h)
- * [tmp102.ridl](devices/tmp102.ridl) and example output [tmp102.h](gen/tmp102.h)
+ * [ina219.pidl](devices/ina219.pidl) and example output [ina219.h](gen/ina219.h)
+ * [tmp102.pidl](devices/tmp102.pidl) and example output [tmp102.h](gen/tmp102.h)
 
 ## Goals
 
