@@ -11,11 +11,12 @@ class PIDLParseException(Exception):
     pass
 
 class PIDLDevice(object):
-    def __init__(self, name : str, description : str, datasheet, registers):
+    def __init__(self, name : str, description : str, datasheet, registers, regions):
         self.name = name
         self.description = description
         self.datasheet = datasheet
         self.registers = registers
+        self.regions = regions
 
     @staticmethod
     def parse(node, parent_list):
@@ -24,14 +25,37 @@ class PIDLDevice(object):
             description = find_or_default(node, "description", "")
             datasheet = node["datasheet"]
 
-            parent_list.append(name)
-
+            parent_list = [name] + parent_list
             registers = []
             if "registers" in node:
                 for r in node["registers"]:
                     registers.append(PIDLRegister.parse(r["register"], parent_list))
+            regions = []
+            if "regions" in node:
+                for r in node["regions"]:
+                    regions.append(PIDLRegion.parse(r["region"], parent_list))
 
-            return PIDLDevice(name, description, datasheet, registers)
+            return PIDLDevice(name, description, datasheet, registers, regions)
+        except KeyError as k:
+            raise PIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
+
+class PIDLRegion(object):
+    def __init__(self, name : str, description : str, offset : int, size : int):
+        self.name = name
+        self.description = description
+        self.offset = offset
+        self.size = size
+
+    @staticmethod
+    def parse(node, parent_list):
+        try:
+            name = node["name"]
+            description = find_or_default(node, "description", "")
+            offset = node["offset"]
+            size = node["size"]
+            parent_list = [name] + parent_list
+
+            return PIDLRegion(name, description, offset, size)
         except KeyError as k:
             raise PIDLParseException("Missing key %s in subelement %s" % (str(k), ".".join(parent_list)))
 
@@ -51,7 +75,7 @@ class PIDLRegister(object):
             offset = node["offset"]
             size = node["size"]
 
-            parent_list.append(name)
+            parent_list = [name] + parent_list
             fields = []
             if "fields" in node:
                 for f in node["fields"]:
@@ -74,7 +98,7 @@ class PIDLField(object):
             name = node["name"]
             description = find_or_default(node, "description", "")
 
-            parent_list.append(name)
+            parent_list = [name] + parent_list
             bitRange = PIDLBitRange.parse(node["bitRange"], parent_list)
             enumeratedValues = []
             if "enumeratedValues" in node:

@@ -27,6 +27,11 @@ C_FIELD_TEMPLATE = Template("""
 #define {{ field_define }}_Msk ({{ field_mask }} << {{ field_define }}_Pos)
 #define {{ field_define }} {{ field_define }}_Msk""")
 
+C_REGION_TEMPLATE = Template("""
+/* {{ region_description }} */
+#define {{ region_define }}_Offset {{ region_offset }}
+#define {{ region_define }}_Size {{ region_size }}""")
+
 def multiline_comment(text, lim=80):
     lines = []
     c_line = " * "
@@ -81,5 +86,14 @@ def cgen(device):
                 header_text += "#define " + field_content["field_define"] + "_" + e.name.upper() + " " + \
                                "(" + str(e.value) + " << " + field_content["field_define"] + "_Pos)" + "        " + \
                                "/* " + e.description + "*/\n"
+
+    for r in device.regions:
+        region_content = {
+            "region_description": multiline_comment(r.description),
+            "region_define": device.name.upper() + "_" + r.name.upper().replace(" ", "_"),
+            "region_offset": r.offset,
+            "region_size": r.size
+        }
+        header_text += C_REGION_TEMPLATE.render(region_content) + "\n"
     header_text += "\n#endif"
     return header_text
