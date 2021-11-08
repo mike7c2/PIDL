@@ -93,7 +93,7 @@ device:
             name: Name of first region
             offset: Offset of first region (hex)
             size: Size of the region
-        -region #....... More regions
+        -region: #....... More regions
     registers:
         -register:
             name: Name of the register
@@ -115,8 +115,49 @@ device:
         -register: #...... More registers!
 ```
 
+## Generated code
+
+Currently a very rudimentary C generator has been implemented, here's an example of generating code to access the CONVERSION_RATE bitfield on the tmp102
+
+```
+#define TMP102_CONFIGURATION_CONVERSION_RATE_Pos (6u)
+#define TMP102_CONFIGURATION_CONVERSION_RATE_Msk ((0x2u) << TMP102_CONFIGURATION_CONVERSION_RATE_Pos)
+#define TMP102_CONFIGURATION_CONVERSION_RATE TMP102_CONFIGURATION_CONVERSION_RATE_Msk
+#define TMP102_CONFIGURATION_CONVERSION_RATE_HZ25 ((0u) << TMP102_CONFIGURATION_CONVERSION_RATE_Pos)        /* 0.25 Hz*/
+#define TMP102_CONFIGURATION_CONVERSION_RATE_1HZ ((1u) << TMP102_CONFIGURATION_CONVERSION_RATE_Pos)        /* 1 Hz*/
+#define TMP102_CONFIGURATION_CONVERSION_RATE_4HZ ((2u) << TMP102_CONFIGURATION_CONVERSION_RATE_Pos)        /* 4 Hz (default)*/
+#define TMP102_CONFIGURATION_CONVERSION_RATE_8HZ ((3u) << TMP102_CONFIGURATION_CONVERSION_RATE_Pos)        /* 8 Hz*/
+```
+
+Generated from the following snippet of PIDL:
+
+```
+                - field:
+                    name: CONVERSION_RATE
+                    bitRange: "[7:6]"
+                    enumeratedValues:
+                        - enumeratedValue:
+                            name: HZ25
+                            description: 0.25 Hz
+                            value: 0
+                        - enumeratedValue:
+                            name: 1HZ
+                            description: 1 Hz
+                            value: 1
+                        - enumeratedValue:
+                            name: 4HZ
+                            description: 4 Hz (default)
+                            value: 2
+                        - enumeratedValue:
+                            name: 8HZ
+                            description: 8 Hz
+                            value: 3
+```
+
 ## Current TODO:
 
  * Make more devices
  * Rust parser/generator?
+ * Make regions able to contain registers (more like SVD)
+ * Make 
 
