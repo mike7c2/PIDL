@@ -19,7 +19,7 @@ C_REGISTER_TEMPLATE = Template("""
  *
 {{register_description}}
 */
-#define {{ register_define }}""")
+{{ register_define }}""")
 
 C_FIELD_TEMPLATE = Template("""
 /* {{ field_description }} */
@@ -31,6 +31,23 @@ C_REGION_TEMPLATE = Template("""
 /* {{ region_description }} */
 #define {{ region_define }}_Offset {{ region_offset }}
 #define {{ region_define }}_Size {{ region_size }}""")
+
+ADDRESS_TYPE_MAP = {
+    0 : "",
+    8 : "uint8_t",
+    16 : "uint16_t",
+    32 : "uint32_t"
+}
+
+def generate_c_pointer_constant(value, size, hx=False):
+    if hx:
+        const = hex(value)[2:].zfill(size//4)
+        return "((%s)0x%s)" % (ADDRESS_TYPE_MAP[size], const)
+    else:
+        return "((%s)%d)" % (ADDRESS_TYPE_MAP[size], value)
+
+def generate_c_unsigned_constant(value):
+    return "(%uu)" % (value)
 
 def multiline_comment(text, lim=80):
     lines = []
@@ -65,7 +82,7 @@ def cgen(device):
         register_content = {
             "register_name": r.name,
             "register_description": multiline_comment(r.description),
-            "register_define": device.name.upper() + "_" + r.name.upper().replace(" ", "_") + "_" + "INDEX" + " " + str(r.offset)
+            "register_define": "" if device.addressWidth == 0 else "#define " + device.name.upper() + "_" + r.name.upper().replace(" ", "_") + "_" + "INDEX" + " " + generate_c_pointer_constant(r.offset, device.addressWidth, True)
         }
 
         header_text += C_REGISTER_TEMPLATE.render(register_content)
@@ -76,23 +93,23 @@ def cgen(device):
         for f in r.fields:
             field_content = {
                 "field_description": f.description,
-                "field_position": "(%d)" % f.bitRange.stop,
-                "field_mask": "(" + hex(2 ** ((f.bitRange.start+1) - f.bitRange.stop)-1) + ")",
+                "field_position": generate_c_unsigned_constant(f.bitRange.stop),
+                "field_mask": "(" + hex(2 ** (f.bitRange.width()-1)) + "u)",
                 "field_define": device.name.upper() + "_" + r.name.upper().replace(" ", "_") + "_" + f.name.upper()
             }
 
             header_text += C_FIELD_TEMPLATE.render(field_content) + "\n"
             for e in f.enumeratedValues:
                 header_text += "#define " + field_content["field_define"] + "_" + e.name.upper() + " " + \
-                               "(" + str(e.value) + " << " + field_content["field_define"] + "_Pos)" + "        " + \
+                               "((" + str(e.value) + "u) << " + field_content["field_define"] + "_Pos)" + "        " + \
                                "/* " + e.description + "*/\n"
 
     for r in device.regions:
         region_content = {
             "region_description": multiline_comment(r.description),
             "region_define": device.name.upper() + "_" + r.name.upper().replace(" ", "_"),
-            "region_offset": r.offset,
-            "region_size": r.size
+            "region_offset": generate_c_pointer_constant(r.offset, device.addressWidth, True),
+            "region_size": generate_c_pointer_constant(r.size, device.addressWidth, True)
         }
         header_text += C_REGION_TEMPLATE.render(region_content) + "\n"
     header_text += "\n#endif"

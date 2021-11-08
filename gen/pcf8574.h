@@ -27,6 +27,6 @@
  * Reads to this register read the device pins, write to it set the output 
  * values 
 */
-#define PCF8574_DATA_INDEX 0
+
 
 #endif

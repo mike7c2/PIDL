@@ -29,79 +29,79 @@
  * All-register reset, settings for bus, voltage range, PGA Gain, ADC 
  * resolution/averaging 
 */
-#define INA219_CONFIGURATION_INDEX 0
+#define INA219_CONFIGURATION_INDEX ((uint8_t)0x00)
 
 /* Setting this bit to '1' generates a system reset that is the same as power-on reset. Resets all registers to default values; this bit self-clears. */
-#define INA219_CONFIGURATION_RST_Pos (15)
-#define INA219_CONFIGURATION_RST_Msk ((0x1) << INA219_CONFIGURATION_RST_Pos)
+#define INA219_CONFIGURATION_RST_Pos (15u)
+#define INA219_CONFIGURATION_RST_Msk ((0x1u) << INA219_CONFIGURATION_RST_Pos)
 #define INA219_CONFIGURATION_RST INA219_CONFIGURATION_RST_Msk
 
 /* Control bus voltage range */
-#define INA219_CONFIGURATION_BRNG_Pos (13)
-#define INA219_CONFIGURATION_BRNG_Msk ((0x1) << INA219_CONFIGURATION_BRNG_Pos)
+#define INA219_CONFIGURATION_BRNG_Pos (13u)
+#define INA219_CONFIGURATION_BRNG_Msk ((0x1u) << INA219_CONFIGURATION_BRNG_Pos)
 #define INA219_CONFIGURATION_BRNG INA219_CONFIGURATION_BRNG_Msk
-#define INA219_CONFIGURATION_BRNG_FSR16V (0 << INA219_CONFIGURATION_BRNG_Pos)        /* 16V FSR*/
-#define INA219_CONFIGURATION_BRNG_FSR32V (1 << INA219_CONFIGURATION_BRNG_Pos)        /* 32V FSR*/
+#define INA219_CONFIGURATION_BRNG_FSR16V ((0u) << INA219_CONFIGURATION_BRNG_Pos)        /* 16V FSR*/
+#define INA219_CONFIGURATION_BRNG_FSR32V ((1u) << INA219_CONFIGURATION_BRNG_Pos)        /* 32V FSR*/
 
 /* Sets PGA gain and range. */
-#define INA219_CONFIGURATION_PG_Pos (11)
-#define INA219_CONFIGURATION_PG_Msk ((0x3) << INA219_CONFIGURATION_PG_Pos)
+#define INA219_CONFIGURATION_PG_Pos (11u)
+#define INA219_CONFIGURATION_PG_Msk ((0x2u) << INA219_CONFIGURATION_PG_Pos)
 #define INA219_CONFIGURATION_PG INA219_CONFIGURATION_PG_Msk
-#define INA219_CONFIGURATION_PG_PG00 (0 << INA219_CONFIGURATION_PG_Pos)        /* Range +- 40mV*/
-#define INA219_CONFIGURATION_PG_PG01 (1 << INA219_CONFIGURATION_PG_Pos)        /* Range +- 80mV*/
-#define INA219_CONFIGURATION_PG_PG10 (2 << INA219_CONFIGURATION_PG_Pos)        /* Range +- 160mV*/
-#define INA219_CONFIGURATION_PG_PG11 (3 << INA219_CONFIGURATION_PG_Pos)        /* Range +- 320mV*/
+#define INA219_CONFIGURATION_PG_PG00 ((0u) << INA219_CONFIGURATION_PG_Pos)        /* Range +- 40mV*/
+#define INA219_CONFIGURATION_PG_PG01 ((1u) << INA219_CONFIGURATION_PG_Pos)        /* Range +- 80mV*/
+#define INA219_CONFIGURATION_PG_PG10 ((2u) << INA219_CONFIGURATION_PG_Pos)        /* Range +- 160mV*/
+#define INA219_CONFIGURATION_PG_PG11 ((3u) << INA219_CONFIGURATION_PG_Pos)        /* Range +- 320mV*/
 
 /* These bits adjust the Bus ADC resolution (9-, 10-, 11-, or 12-bit) or set the number of samples used when averaging results for the Bus Voltage Register (02h). */
-#define INA219_CONFIGURATION_BADC_Pos (7)
-#define INA219_CONFIGURATION_BADC_Msk ((0xf) << INA219_CONFIGURATION_BADC_Pos)
+#define INA219_CONFIGURATION_BADC_Pos (7u)
+#define INA219_CONFIGURATION_BADC_Msk ((0x8u) << INA219_CONFIGURATION_BADC_Pos)
 #define INA219_CONFIGURATION_BADC INA219_CONFIGURATION_BADC_Msk
 
 /* These bits adjust the Shunt ADC resolution (9-, 10-, 11-, or 12-bit) or set the number of samples used when averaging results for the Shunt Voltage Register (01h). */
-#define INA219_CONFIGURATION_SADC_Pos (4)
-#define INA219_CONFIGURATION_SADC_Msk ((0x7) << INA219_CONFIGURATION_SADC_Pos)
+#define INA219_CONFIGURATION_SADC_Pos (4u)
+#define INA219_CONFIGURATION_SADC_Msk ((0x4u) << INA219_CONFIGURATION_SADC_Pos)
 #define INA219_CONFIGURATION_SADC INA219_CONFIGURATION_SADC_Msk
 
 /*  */
-#define INA219_CONFIGURATION_MODE_Pos (0)
-#define INA219_CONFIGURATION_MODE_Msk ((0x7) << INA219_CONFIGURATION_MODE_Pos)
+#define INA219_CONFIGURATION_MODE_Pos (0u)
+#define INA219_CONFIGURATION_MODE_Msk ((0x4u) << INA219_CONFIGURATION_MODE_Pos)
 #define INA219_CONFIGURATION_MODE INA219_CONFIGURATION_MODE_Msk
-#define INA219_CONFIGURATION_MODE_MODE000 (0 << INA219_CONFIGURATION_MODE_Pos)        /* Power-down*/
-#define INA219_CONFIGURATION_MODE_MODE001 (1 << INA219_CONFIGURATION_MODE_Pos)        /* Shunt voltage, triggered*/
-#define INA219_CONFIGURATION_MODE_MODE010 (2 << INA219_CONFIGURATION_MODE_Pos)        /* Bus voltage, triggered*/
-#define INA219_CONFIGURATION_MODE_MODE011 (3 << INA219_CONFIGURATION_MODE_Pos)        /* Shunt and bus, triggered*/
-#define INA219_CONFIGURATION_MODE_MODE100 (4 << INA219_CONFIGURATION_MODE_Pos)        /* ADC off (disabled)*/
-#define INA219_CONFIGURATION_MODE_MODE101 (5 << INA219_CONFIGURATION_MODE_Pos)        /* Shunt voltage, continuous*/
-#define INA219_CONFIGURATION_MODE_MODE110 (6 << INA219_CONFIGURATION_MODE_Pos)        /* Bus voltage, continuous*/
-#define INA219_CONFIGURATION_MODE_MODE111 (7 << INA219_CONFIGURATION_MODE_Pos)        /* Shunt and bus, continuous*/
+#define INA219_CONFIGURATION_MODE_MODE000 ((0u) << INA219_CONFIGURATION_MODE_Pos)        /* Power-down*/
+#define INA219_CONFIGURATION_MODE_MODE001 ((1u) << INA219_CONFIGURATION_MODE_Pos)        /* Shunt voltage, triggered*/
+#define INA219_CONFIGURATION_MODE_MODE010 ((2u) << INA219_CONFIGURATION_MODE_Pos)        /* Bus voltage, triggered*/
+#define INA219_CONFIGURATION_MODE_MODE011 ((3u) << INA219_CONFIGURATION_MODE_Pos)        /* Shunt and bus, triggered*/
+#define INA219_CONFIGURATION_MODE_MODE100 ((4u) << INA219_CONFIGURATION_MODE_Pos)        /* ADC off (disabled)*/
+#define INA219_CONFIGURATION_MODE_MODE101 ((5u) << INA219_CONFIGURATION_MODE_Pos)        /* Shunt voltage, continuous*/
+#define INA219_CONFIGURATION_MODE_MODE110 ((6u) << INA219_CONFIGURATION_MODE_Pos)        /* Bus voltage, continuous*/
+#define INA219_CONFIGURATION_MODE_MODE111 ((7u) << INA219_CONFIGURATION_MODE_Pos)        /* Shunt and bus, continuous*/
 
 /**
  * Definitions for Shunt voltage register
  *
  * Shunt voltage measurement data. 
 */
-#define INA219_SHUNT_VOLTAGE_INDEX 1
+#define INA219_SHUNT_VOLTAGE_INDEX ((uint8_t)0x01)
 
 /**
  * Definitions for Bus voltage register
  *
  * Bus voltage measurement data. 
 */
-#define INA219_BUS_VOLTAGE_INDEX 2
+#define INA219_BUS_VOLTAGE_INDEX ((uint8_t)0x02)
 
 /*  */
-#define INA219_BUS_VOLTAGE_BD_Pos (3)
-#define INA219_BUS_VOLTAGE_BD_Msk ((0x1fff) << INA219_BUS_VOLTAGE_BD_Pos)
+#define INA219_BUS_VOLTAGE_BD_Pos (3u)
+#define INA219_BUS_VOLTAGE_BD_Msk ((0x1000u) << INA219_BUS_VOLTAGE_BD_Pos)
 #define INA219_BUS_VOLTAGE_BD INA219_BUS_VOLTAGE_BD_Msk
 
 /* Conversion Ready bit (CNVR) indicates when data from a conversion is available in the data output registers */
-#define INA219_BUS_VOLTAGE_CNVR_Pos (1)
-#define INA219_BUS_VOLTAGE_CNVR_Msk ((0x1) << INA219_BUS_VOLTAGE_CNVR_Pos)
+#define INA219_BUS_VOLTAGE_CNVR_Pos (1u)
+#define INA219_BUS_VOLTAGE_CNVR_Msk ((0x1u) << INA219_BUS_VOLTAGE_CNVR_Pos)
 #define INA219_BUS_VOLTAGE_CNVR INA219_BUS_VOLTAGE_CNVR_Msk
 
 /* The Math Overflow Flag (OVF) is set when the Power or Current calculations are out of range. */
-#define INA219_BUS_VOLTAGE_OVF_Pos (0)
-#define INA219_BUS_VOLTAGE_OVF_Msk ((0x1) << INA219_BUS_VOLTAGE_OVF_Pos)
+#define INA219_BUS_VOLTAGE_OVF_Pos (0u)
+#define INA219_BUS_VOLTAGE_OVF_Msk ((0x1u) << INA219_BUS_VOLTAGE_OVF_Pos)
 #define INA219_BUS_VOLTAGE_OVF INA219_BUS_VOLTAGE_OVF_Msk
 
 /**
@@ -109,14 +109,14 @@
  *
  * Power measurement data. 
 */
-#define INA219_POWER_INDEX 3
+#define INA219_POWER_INDEX ((uint8_t)0x03)
 
 /**
  * Definitions for Current register
  *
  * Contains the value of the current flowing through the shunt resistor. 
 */
-#define INA219_CURRENT_INDEX 4
+#define INA219_CURRENT_INDEX ((uint8_t)0x04)
 
 /**
  * Definitions for Calibration register
@@ -124,6 +124,6 @@
  * Gets full-scale range and LSB of Current and power measurements. Overall 
  * system calibration. 
 */
-#define INA219_CALIBRATION_INDEX 5
+#define INA219_CALIBRATION_INDEX ((uint8_t)0x05)
 
 #endif

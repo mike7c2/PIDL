@@ -35,15 +35,15 @@ device:
         - region:
             name: REGISTERS_RESERVED
             offset: 0x8000
-            size: 0x800C
+            size: 0x000C
         - region:
             name: REGISTERS
             offset: 0x800D
-            size: 0x8010
+            size: 0x0002
         - region:
             name: REGISTERS_RESERVED_2
             offset: 0x8011
-            size: 0x8016
+            size: 0x0005
     registers:
         - register:
             name: STATUS
