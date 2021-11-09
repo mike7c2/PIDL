@@ -22,8 +22,7 @@ device:
     addressWidth: 0
     registerSize: 8
     registers:
-        - register:
-            name: Data
+        -   name: Data
             description: Reads to this register read the device pins, write to it set the output values
             offset: 0
             size: 8

@@ -16,227 +16,174 @@ device:
     addressWidth: 16
     registerSize: 16
     regions:
-        - region:
-            name: ROM
+        -   name: ROM
             offset: 0x0000
             size: 0x400
-        - region:
-            name: RAM
+        -   name: RAM
             offset: 0x0400
             size: 0x400
-        - region:
-            name: "PIXEL_RAM"
+        -   name: "PIXEL_RAM"
             offset: 0x0400
             size: 0x300
-        - region:
-            name: EEPROM
+        -   name: EEPROM
             offset: 0x2400
             size: 0x340
-        - region:
-            name: REGISTERS_RESERVED
+        -   name: REGISTERS_RESERVED
             offset: 0x8000
             size: 0x000C
-        - region:
-            name: REGISTERS
+        -   name: REGISTERS
             offset: 0x800D
             size: 0x0002
-        - region:
-            name: REGISTERS_RESERVED_2
+        -   name: REGISTERS_RESERVED_2
             offset: 0x8011
             size: 0x0005
     registers:
-        - register:
-            name: STATUS
+        -   name: STATUS
             description: Temperature register
             offset: 0x8000
             size: 16
             fields:
-                - field:
-                    name: EN_OV
+                -   name: EN_OV
                     description: Enable RAM overwrite
                     bitRange: "[4:4]"
-                - field:
-                    name: DATA_READY
+                -   name: DATA_READY
                     description: New data available in RAM
                     bitRange: "[3:3]"
-                - field:
-                    name: LAST_SUBPAGE
+                -   name: LAST_SUBPAGE
                     description: Last measured subpage
                     bitRange: "[2:0]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: SUBPAGE0
+                        -   name: SUBPAGE0
                             description: Subpage 0 selected
                             value: 0
-                        - enumeratedValue:
-                            name: SUBPAGE1
+                        -   name: SUBPAGE1
                             description: Subpage 1 selected
                             value: 1
-        - register:
-            name: CONTROL
+        -   name: CONTROL
             description: Configuration Register
             offset: 0x800D
             size: 16
             fields:
-                - field:
-                    name: READING_PATTERN
+                -   name: READING_PATTERN
                     description: Pattern for reading data from sensor
                     bitRange: "[12:12]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: INTERLEAVED
+                        -   name: INTERLEAVED
                             description: Interleaved read pattern
                             value: 0
-                        - enumeratedValue:
-                            name: CHESS
+                        -   name: CHESS
                             description: Chess read pattern
                             value: 1
-                - field:
-                    name: RESOLUTION_CONTROL
+                -   name: RESOLUTION_CONTROL
                     bitRange: "[11:10]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: 16BIT
+                        -   name: 16BIT
                             description: 16BIT ADC resolution
                             value: 0
-                        - enumeratedValue:
-                            name: 17BIT
+                        -   name: 17BIT
                             description: 17BIT ADC resolution
                             value: 1
-                        - enumeratedValue:
-                            name: 18BIT
+                        -   name: 18BIT
                             description: 18BIT ADC resolution
                             value: 2
-                        - enumeratedValue:
-                            name: 19BIT
+                        -   name: 19BIT
                             description: 19BIT ADC resolution
                             value: 3
-                - field:
-                    name: REFRESH_RATE
+                -   name: REFRESH_RATE
                     description: Control refresh rate of IR sensor
                     bitRange: "[9:7]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: HZ5
+                        -   name: HZ5
                             description: 0.5Hz
                             value: 0
-                        - enumeratedValue:
-                            name: 1HZ
+                        -   name: 1HZ
                             description: 1Hz
                             value: 1
-                        - enumeratedValue:
-                            name: 2HZ
+                        -   name: 2HZ
                             description: 2Hz
                             value: 2
-                        - enumeratedValue:
-                            name: 4HZ
+                        -   name: 4HZ
                             description: 4Hz
                             value: 3
-                        - enumeratedValue:
-                            name: 8HZ
+                        -   name: 8HZ
                             description: 8Hz
                             value: 4
-                        - enumeratedValue:
-                            name: 16HZ
+                        -   name: 16HZ
                             description: 16Hz
                             value: 5
-                        - enumeratedValue:
-                            name: 32HZ
+                        -   name: 32HZ
                             description: 32Hz
                             value: 6
-                        - enumeratedValue:
-                            name: 64HZ
+                        -   name: 64HZ
                             description: 64Hz
                             value: 7
                 
-                - field:
-                    name: SEL_SUBPAGE
+                -   name: SEL_SUBPAGE
                     bitRange: "[6:4]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: SUBPAGE0
+                        -   name: SUBPAGE0
                             description: Subpage 0 selected
                             value: 0
-                        - enumeratedValue:
-                            name: SUBPAGE1
+                        -   name: SUBPAGE1
                             description: Subpage 1 selected
                             value: 1
-                - field:
-                    name: EN_REPEAT
+                -   name: EN_REPEAT
                     bitRange: "[3:3]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: TOGGLE
+                        -   name: TOGGLE
                             description: Toggles between subpage "0" and subpage "1" if Enable subpages mode = "1"
                             value: 0
-                        - enumeratedValue:
-                            name: SELECT
+                        -   name: SELECT
                             description:  Select subpage determines which subpage to be measured if Enable subpages mode = "1"
                             value: 1
-                - field:
-                    name: EN_HOLD
+                -   name: EN_HOLD
                     bitRange: "[2:2]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: NOHOLD
+                        -   name: NOHOLD
                             description: Transfer the data into storage RAM at each measured frame (
                             value: 0
-                        - enumeratedValue:
-                            name: HOLD
+                        -   name: HOLD
                             description: Transfer the data into storage RAM only if en_overwrite = 1
                             value: 1
-                - field:
-                    name: EN_SUBPAGE
+                -   name: EN_SUBPAGE
                     bitRange: "[0:0]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: SINGLE
+                        -   name: SINGLE
                             description: No subpages, only one page will be measured
                             value: 0
-                        - enumeratedValue:
-                            name: ACTIVE
+                        -   name: ACTIVE
                             description: Subpage mode is activated 
                             value: 1
-        - register:
-            name: I2C_CONFIGURATION
+        -   name: I2C_CONFIGURATION
             description: Configuration Register for I2C
             offset: 0x800F
             size: 16
             fields:
-                - field:
-                    name: DRIVER_LIMIT
+                -   name: DRIVER_LIMIT
                     bitRange: "[2:2]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: "ON"
+                        -   name: "ON"
                             description: SDA driver current limit is ON 
                             value: 0
-                        - enumeratedValue:
-                            name: "OFF"
+                        -   name: "OFF"
                             description: SDA driver current limit is OFF
                             value: 1
-                - field:
-                    name: THRESHOLD
+                -   name: THRESHOLD
                     bitRange: "[1:1]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: VDD
+                        -   name: VDD
                             description: VDD reffered threshold (normal mode) 
                             value: 0
-                        - enumeratedValue:
-                            name: 1V8
+                        -   name: 1V8
                             description: 1.8V reffered threshold (1.8V mode)
                             value: 1
-                - field:
-                    name: FM
+                -   name: FM
                     bitRange: "[0:0]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: ENABLE
+                        -   name: ENABLE
                             description: FM+ mode enabled
                             value: 0
-                        - enumeratedValue:
-                            name: DISABLE
+                        -   name: DISABLE
                             description: FM+ mode disabled
                             value: 1
 

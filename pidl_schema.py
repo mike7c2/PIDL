@@ -34,11 +34,11 @@ class PIDLDevice(object):
             registers = []
             if "registers" in node:
                 for r in node["registers"]:
-                    registers.append(PIDLRegister.parse(r["register"], parent_list))
+                    registers.append(PIDLRegister.parse(r, parent_list))
             regions = []
             if "regions" in node:
                 for r in node["regions"]:
-                    regions.append(PIDLRegion.parse(r["region"], parent_list))
+                    regions.append(PIDLRegion.parse(r, parent_list))
 
             return PIDLDevice(name, description, datasheet, registers, regions, addressWidth, registerSize)
         except KeyError as k:
@@ -84,7 +84,7 @@ class PIDLRegister(object):
             fields = []
             if "fields" in node:
                 for f in node["fields"]:
-                    fields.append(PIDLField.parse(f["field"], parent_list))
+                    fields.append(PIDLField.parse(f, parent_list))
 
             return PIDLRegister(name, description, offset, size, fields)
         except KeyError as k:
@@ -108,7 +108,7 @@ class PIDLField(object):
             enumeratedValues = []
             if "enumeratedValues" in node:
                 for e in node["enumeratedValues"]:
-                    enumeratedValues.append(PIDLEnumeratedValue.parse(e["enumeratedValue"], parent_list))
+                    enumeratedValues.append(PIDLEnumeratedValue.parse(e, parent_list))
 
             return PIDLField(name, description, bitRange, enumeratedValues)
         except KeyError as k:

@@ -24,146 +24,113 @@ device:
     addressWidth: 8
     registerSize: 16
     registers:
-        - register:
-            name: Configuration
+        -   name: Configuration
             description: All-register reset, settings for bus, voltage range, PGA Gain, ADC resolution/averaging
             offset: 0
             size: 16
             fields:
-                - field:
-                    name: RST
+                -   name: RST
                     description: Setting this bit to '1' generates a system reset that is the same as power-on reset. Resets all registers to default values; this bit self-clears.
                     bitRange: "[15:15]"
-                - field:
-                    name: BRNG
+                -   name: BRNG
                     description: Control bus voltage range
                     bitRange: "[13:13]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: FSR16V
+                        -   name: FSR16V
                             description: 16V FSR
                             value: 0
-                        - enumeratedValue:
-                            name: FSR32V
+                        -   name: FSR32V
                             description: 32V FSR
                             value: 1
-                - field:
-                    name: PG
+                -   name: PG
                     description: Sets PGA gain and range.
                     bitRange: "[12:11]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: PG00
+                        -   name: PG00
                             description: Range +- 40mV
                             value: 0
-                        - enumeratedValue:
-                            name: PG01
+                        -   name: PG01
                             description: Range +- 80mV
                             value: 1
-                        - enumeratedValue:
-                            name: PG10
+                        -   name: PG10
                             description: Range +- 160mV
                             value: 2
-                        - enumeratedValue:
-                            name: PG11
+                        -   name: PG11
                             description: Range +- 320mV
                             value: 3
-                - field:
-                    name: BADC
+                -   name: BADC
                     description: These bits adjust the Bus ADC resolution (9-, 10-, 11-, or 12-bit) or set the number of samples used when averaging results for the Bus Voltage Register (02h).
                     bitRange: "[10:7]"
-                - field:
-                    name: SADC
+                -   name: SADC
                     description: These bits adjust the Shunt ADC resolution (9-, 10-, 11-, or 12-bit) or set the number of samples used when averaging results for the Shunt Voltage Register (01h).
                     bitRange: "[6:4]"
-                - field:
-                    name: MODE
+                -   name: MODE
                     bitRange: "[2:0]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: MODE000
+                        -   name: MODE000
                             description: Power-down
                             value: 0
-                        - enumeratedValue:
-                            name: MODE001
+                        -   name: MODE001
                             description: Shunt voltage, triggered
                             value: 1
-                        - enumeratedValue:
-                            name: MODE010
+                        -   name: MODE010
                             description: Bus voltage, triggered
                             value: 2
-                        - enumeratedValue:
-                            name: MODE011
+                        -   name: MODE011
                             description: Shunt and bus, triggered
                             value: 3
-                        - enumeratedValue:
-                            name: MODE100
+                        -   name: MODE100
                             description: ADC off (disabled)
                             value: 4
-                        - enumeratedValue:
-                            name: MODE101
+                        -   name: MODE101
                             description: Shunt voltage, continuous
                             value: 5
-                        - enumeratedValue:
-                            name: MODE110
+                        -   name: MODE110
                             description: Bus voltage, continuous
                             value: 6
-                        - enumeratedValue:
-                            name: MODE111
+                        -   name: MODE111
                             description: Shunt and bus, continuous
                             value: 7
-        - register:
-            name: Shunt voltage
+        -   name: Shunt voltage
             description: Shunt voltage measurement data.
             offset: 1
             size: 16
             fields:
-                - field:
-                    name: SD
+                -   name: SD
                     bitRange: "[15:0]"
-        - register:
-            name: Bus voltage
+        -   name: Bus voltage
             description: Bus voltage measurement data.
             offset: 2
             size: 16
             fields:
-                - field:
-                    name: BD
+                -   name: BD
                     bitRange: "[15:3]"
-                - field:
-                    name: CNVR
+                -   name: CNVR
                     description: Conversion Ready bit (CNVR) indicates when data from a conversion is available in the data output registers
                     bitRange: "[1:1]"
-                - field:
-                    name: OVF
+                -   name: OVF
                     description: The Math Overflow Flag (OVF) is set when the Power or Current calculations are out of range. 
                     bitRange: "[0:0]"
-        - register:
-            name: Power
+        -   name: Power
             description: Power measurement data.
             offset: 3
             size: 16
             fields:
-                - field:
-                    name: PD
+                -   name: PD
                     bitRange: "[15:0]"
-        - register:
-            name: Current
+        -   name: Current
             description: Contains the value of the current flowing through the shunt resistor.
             offset: 4
             size: 16
             fields:
-                - field:
-                    name: CD
+                -   name: CD
                     bitRange: "[15:0]"
-        - register:
-            name: Calibration
+        -   name: Calibration
             description: Gets full-scale range and LSB of Current and power measurements. Overall system calibration.
             offset: 5
             size: 16
             fields:
-                - field:
-                    name: FS
+                -   name: FS
                     description: Full scale calibration value
                     bitRange: "[15:0]"
 

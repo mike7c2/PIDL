@@ -32,113 +32,104 @@ device:
     addressWidth: 8
     registerSize: 16
     registers:
-        - register:
-            name: Temperature
+        -   name: Temperature
             description: Temperature register
             offset: 0
             size: 16
             fields:
-                - field:
-                    name: TEMP
+                -   name: TEMP
                     bitRange: "[15:4]"
-        - register:
-            name: Configuration
+
+        -   name: Configuration
             description: Configuration Register
             offset: 1
             size: 16
             fields:
-                - field:
-                    name: ONE_SHOT
+                -   name: ONE_SHOT
                     description: When the device is in Shutdown Mode, writing a 1 to the OS bit starts a single temperature conversion.
                     bitRange: "[15:15]"
-                - field:
-                    name: RESOLUTION
+
+                -   name: RESOLUTION
                     description: The converter resolution bits, R1 and R0, are read-only bits
                     bitRange: "[14:13]"
-                - field:
-                    name: FAULT_QUEUE
+
+                -   name: FAULT_QUEUE
                     description: Control number of faults to trigger alarm
                     bitRange: "[12:11]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: 1FAULT
+                        -   name: 1FAULT
                             description: 1 Consecutive fault
                             value: 0
-                        - enumeratedValue:
-                            name: 2FAULT
+
+                        -   name: 2FAULT
                             description: 2 Consecutive fault
                             value: 1
-                        - enumeratedValue:
-                            name: 4FAULT
+
+                        -   name: 4FAULT
                             description: 4 Consecutive fault
                             value: 2
-                        - enumeratedValue:
-                            name: 6FAULT
+
+                        -   name: 6FAULT
                             description: 6 Consecutive fault
                             value: 3
-                - field:
-                    name: POLARITY
+
+                -   name: POLARITY
                     description: If the POL bit is set to 0 (default), the ALERT pin becomes active low.
                     bitRange: "[10:10]"
-                - field:
-                    name: THERMOSTAT
+
+                -   name: THERMOSTAT
                     description: The Thermostat mode bit indicates to the device whether to operate in Comparator mode (TM = 0) or Interrupt (TM = 1).
                     bitRange: "[9:9]"
-                - field:
-                    name: SHUTDOWN_MODE
+
+                -   name: SHUTDOWN_MODE
                     description: Shutdown mode enables when the SD bit is
                     bitRange: "[8:8]"
-                - field:
-                    name: CONVERSION_RATE
+
+                -   name: CONVERSION_RATE
                     bitRange: "[7:6]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: HZ25
+                        -   name: HZ25
                             description: 0.25 Hz
                             value: 0
-                        - enumeratedValue:
-                            name: 1HZ
+
+                        -   name: 1HZ
                             description: 1 Hz
                             value: 1
-                        - enumeratedValue:
-                            name: 4HZ
+
+                        -   name: 4HZ
                             description: 4 Hz (default)
                             value: 2
-                        - enumeratedValue:
-                            name: 8HZ
+
+                        -   name: 8HZ
                             description: 8 Hz
                             value: 3
-                - field:
-                    name: ALERT
+
+                -   name: ALERT
                     description: Active high alarm bit
                     bitRange: "[5:5]"
-                - field:
-                    name: EXTENDED_MODE
+
+                -   name: EXTENDED_MODE
                     bitRange: "[5:5]"
                     enumeratedValues:
-                        - enumeratedValue:
-                            name: NORMAL_MODE
+                        -   name: NORMAL_MODE
                             value: 0
-                        - enumeratedValue:
-                            name: EXTENDED_MODE
+                        -   name: EXTENDED_MODE
                             value: 1
-        - register:
-            name: TLOW
+
+        -   name: TLOW
             description: Low temperature register
             offset: 2
             size: 16
             fields:
-                - field:
-                    name: FIELD
+                -   name: FIELD
                     bitRange: "[15:4]"
-        - register:
-            name: THIGH
+
+        -   name: THIGH
             description: High temperature register
             offset: 3
             size: 16
             fields:
-                - field:
-                    name: FIELD
+                -   name: FIELD
                     bitRange: "[15:4]"
 
 
